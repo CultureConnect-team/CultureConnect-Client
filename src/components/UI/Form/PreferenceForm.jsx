@@ -78,7 +78,8 @@ const PreferenceForm = ({ onSubmit }) => {
       toast.success("Preferensi berhasil disimpan!");
 
       if (typeof onSubmit === "function") {
-        onSubmit(); // ✅ hanya dipanggil kalau didefinisikan
+        onSubmit();
+        window.location.reload();
       }
     } catch (error) {
       console.error("Gagal simpan preferensi:", error.message);

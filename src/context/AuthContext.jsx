@@ -7,7 +7,7 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
   const [profile, setProfile] = useState(null);
-  const [justFilledProfile, setJustFilledProfile] = useState(false); // ✅ Tambahan
+  const [justFilledProfile, setJustFilledProfile] = useState(false);
 
   useEffect(() => {
     const verifyAuth = async () => {

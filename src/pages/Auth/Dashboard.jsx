@@ -8,7 +8,7 @@ import Hero from "../../components/UI/Dashboard/Hero";
 import Destination from "../../components/UI/Dashboard/Destination";
 import SavedDestination from "../../components/UI/Dashboard/SavedDestination";
 import PreferenceModal from "./PreferenceModal";
-import { hasPreferences } from "../../utils/Preferences"; 
+import { hasPreferences } from "../../utils/Preferences";
 
 const Dashboard = () => {
   const { isAuthenticated, setProfile } = useAuth();

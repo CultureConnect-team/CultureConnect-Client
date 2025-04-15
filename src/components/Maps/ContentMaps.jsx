@@ -8,10 +8,10 @@ import PlaceDetailSidebar from "./PlaceDetailSidebar";
 
 const ContentMaps = () => {
   const [selectedPlace, setSelectedPlace] = useState(null);
+  // eslint-disable-next-line
   const [userLocation, setUserLocation] = useState(null);
   const mapRef = useRef(null);
 
-  // Initialize map once
   useEffect(() => {
     const map = initializeMap("map");
     mapRef.current = map;
@@ -20,7 +20,7 @@ const ContentMaps = () => {
       try {
         const raw = await getAllDestinations();
         const destinations = Object.values(raw);
-        addMarkersToMap(map, destinations, setSelectedPlace, null); // userLocation belum ada
+        addMarkersToMap(map, destinations, setSelectedPlace, null); 
       } catch (err) {
         console.error("Gagal memuat destinasi:", err);
       }
@@ -33,7 +33,6 @@ const ContentMaps = () => {
     };
   }, []);
 
-  // Get user location and add marker
   useEffect(() => {
     if (!mapRef.current) return;
 
@@ -50,8 +49,9 @@ const ContentMaps = () => {
 
           map.setView([coords.latitude, coords.longitude], 13);
           
-
+          // eslint-disable-next-line
           const userMarker = L.marker([coords.latitude, coords.longitude], {
+            // eslint-disable-next-line
             icon: L.icon({
               iconUrl: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png",
               shadowUrl: "https://unpkg.com/leaflet@1.9.3/dist/images/marker-shadow.png",
