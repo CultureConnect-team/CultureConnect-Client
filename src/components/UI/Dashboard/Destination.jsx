@@ -12,7 +12,7 @@ const Collections = ({ category, setCategory, userId }) => {
   const [loading, setLoading] = useState(false);
   const [loadingMore, setLoadingMore] = useState(false);
   const [error, setError] = useState(false);
-  const itemsPerPage = 6;
+  const itemsPerPage = 8;
 
   const fetchDestinations = useCallback(async () => {
     if (!userId) return;
