@@ -43,7 +43,6 @@ const PreferenceForm = ({ onSubmit }) => {
           setRating(data.RatePreference || "");
         }
       } catch (err) {
-        toast.error("Terjadi kesalahan saat memuat preferensi.");
         console.error(err);
       }
     };
