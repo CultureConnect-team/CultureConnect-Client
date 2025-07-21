@@ -21,7 +21,7 @@ const Collections = ({ category, setCategory, userId }) => {
       setLoading(true);
       setError(false);
   
-      const preference = (await getUserPreference(userId)).data;
+      const preference = (await getUserPreference(userId));
       const kategori = JSON.parse(preference.categoryPreference || "[]");
       const deskripsi = preference.descriptionPreference || "";
       const rating = parseFloat(preference.RatePreference || "0");

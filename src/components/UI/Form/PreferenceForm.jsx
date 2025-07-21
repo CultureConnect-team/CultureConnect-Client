@@ -32,7 +32,8 @@ const PreferenceForm = ({ onSubmit }) => {
 
       try {
         const res = await getUserPreference(user.id);
-        const data = res.data;
+        const data = res;
+        
 
         if (data) {
           const kategori = JSON.parse(data.categoryPreference);

@@ -27,15 +27,6 @@ const SavedDestinations = memo(({ destinations }) => {
   );
 });
 
-const Preferences = () => {
-  return (
-    <div className="p-4 bg-white rounded shadow">
-      <h2 className="text-xl font-semibold mb-4">Preferensi Anda</h2>
-      <p className="text-gray-600">Konten preferensi akan ditampilkan di sini.</p>
-    </div>
-  );
-};
-
 const UserProfile = () => {
   const [profile, setProfile] = useState(null);
   const [userData, setUserData] = useState(null);

@@ -11,26 +11,34 @@ function Hero() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchLocation = async (latitude, longitude) => {
-      try {
-        const response = await fetch(
-          `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
-        );
-        const data = await response.json();
-        if (data.address) {
-          const city =
-            data.address.city ||
-            data.address.town ||
-            data.address.village ||
-            "Tidak diketahui";
-          const state = data.address.state || "Tidak diketahui";
-          setLocationName(`${city}, ${state}`);
-        }
-      } catch (error) {
-        console.error("Gagal mendapatkan lokasi:", error);
-        setError("Gagal mendapatkan lokasi.");
+  const fetchLocation = async (latitude, longitude) => {
+    try {
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
+      );
+      const data = await response.json();
+      if (data.address) {
+        const {
+          city,
+          town,
+          village,
+          county,
+          state,
+          region,
+          country,
+        } = data.address;
+
+        const primary =
+          city || town || village || county || region || "Tidak diketahui";
+        const secondary = state || country || "Tidak diketahui";
+
+        setLocationName(`${primary}, ${secondary}`);
       }
-    };
+    } catch (error) {
+      console.error("Gagal mendapatkan lokasi:", error);
+      setError("Gagal mendapatkan lokasi.");
+    }
+  };
 
     const getCurrentPosition = () => {
       if (navigator.geolocation) {
@@ -51,10 +59,12 @@ function Hero() {
     getCurrentPosition();
   }, []);
 
+  console.log(locationName);
+  
   return (
     <div className="mx-auto max-w-screen-xl px-6 py-10">
       <div
-        className="relative flex flex-wrap items-center justify-between px-6 md:px-12 lg:px-20 h-[300px] md:h-[350px] lg:h-[400px] bg-cover bg-center rounded-xl shadow-xl overflow-hidden"
+        className="relative flex flex-wrap items-center justify-between px-6 md:px-12 lg:px-20 h-[400px] md:h-[350px] lg:h-[400px] bg-cover bg-center rounded-xl shadow-xl overflow-hidden"
         style={{ backgroundImage: `url(${HeroImage})` }}
       >
         <h1 className="relative z-10 text-white text-3xl md:text-4xl lg:text-5xl font-bold w-full md:w-1/2 mb-6 md:mb-0 leading-tight">

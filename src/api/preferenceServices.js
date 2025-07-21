@@ -13,6 +13,6 @@ export const saveUserPreference = async ({ userId, kategori, deskripsi, rating }
 
 export const getUserPreference = async (userId) => {
     const response = await api.get(`/preferences/${userId}`);
-    return response.data;
+    return response.data.data;
   };
   
