@@ -1,7 +1,19 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import HeroImage from "/images/bali_view_beside_the_river.png";
+import L from "leaflet";
+import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
+import markerIcon from "leaflet/dist/images/marker-icon.png";
+import markerShadow from "leaflet/dist/images/marker-shadow.png";
+
+// Fix leaflet's default icon path for production build
+delete L.Icon.Default.prototype._getIconUrl;
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: markerIcon2x,
+  iconUrl: markerIcon,
+  shadowUrl: markerShadow,
+});
 
 function Hero() {
   const defaultPosition = [-6.1754, 106.8272];
@@ -11,34 +23,34 @@ function Hero() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-  const fetchLocation = async (latitude, longitude) => {
-    try {
-      const response = await fetch(
-        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
-      );
-      const data = await response.json();
-      if (data.address) {
-        const {
-          city,
-          town,
-          village,
-          county,
-          state,
-          region,
-          country,
-        } = data.address;
+    const fetchLocation = async (latitude, longitude) => {
+      try {
+        const response = await fetch(
+          `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
+        );
+        const data = await response.json();
+        if (data.address) {
+          const {
+            city,
+            town,
+            village,
+            county,
+            state,
+            region,
+            country,
+          } = data.address;
 
-        const primary =
-          city || town || village || county || region || "Tidak diketahui";
-        const secondary = state || country || "Tidak diketahui";
+          const primary =
+            city || town || village || county || region || "Tidak diketahui";
+          const secondary = state || country || "Tidak diketahui";
 
-        setLocationName(`${primary}, ${secondary}`);
+          setLocationName(`${primary}, ${secondary}`);
+        }
+      } catch (error) {
+        console.error("Gagal mendapatkan lokasi:", error);
+        setError("Gagal mendapatkan lokasi.");
       }
-    } catch (error) {
-      console.error("Gagal mendapatkan lokasi:", error);
-      setError("Gagal mendapatkan lokasi.");
-    }
-  };
+    };
 
     const getCurrentPosition = () => {
       if (navigator.geolocation) {
@@ -60,7 +72,7 @@ function Hero() {
   }, []);
 
   console.log(locationName);
-  
+
   return (
     <div className="mx-auto max-w-screen-xl px-6 py-10">
       <div
